@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: teamspeak
+  namespace: teamspeak-server
+spec:
+  selector:
+    app: teamspeak
+  ports:
+    - protocol: TCP
+      name: ts-10011
+      port: 10011
+      targetPort: 10011
+    - protocol: TCP
+      name: ts-30033
+      port: 30033
+      targetPort: 30033
+    - protocol: UDP
+      name: ts-9987
+      port: 9987
+      targetPort: 9987
+  type: NodePort

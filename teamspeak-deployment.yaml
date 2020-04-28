@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teamspeak
+  namespace: teamspeak-server
+  labels:
+    app: teamspeak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teamspeak
+  template:
+    metadata:
+      labels:
+        app: teamspeak
+    spec:
+      containers:
+        - name: teamspeak
+          image: teamspeak
+          ports:
+              - containerPort: 9987
+              - containerPort: 10011
+              - containerPort: 30033
+          env:
+              - name: TS3SERVER_DB_PLUGIN
+                value: ts3db_mariadb
+              - name: TS3SERVER_DB_SQLCREATEPATH
+                value: create_mariadb
+              - name: TS3SERVER_DB_HOST
+                value: mariadb
+              - name: TS3SERVER_DB_USER
+                value: root
+              - name: TS3SERVER_DB_PASSWORD
+                value: tspassw0rd
+              - name: TS3SERVER_DB_NAME
+                value: teamspeak
+              - name: TS3SERVER_DB_WAITUNTILREADY
+                value: "30"
+              - name: TS3SERVER_LICENSE
+                value: accept
